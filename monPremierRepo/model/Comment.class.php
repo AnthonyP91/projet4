@@ -44,11 +44,11 @@ class Comment {
 	private  $_date;
 
 	/**
-	 * true normal, flase reported
-	 * @var bool
+	 * 1 normal, 0 reported
+	 * @var int
 	 * @access private
 	 */
-	private  $_status = true;
+	private  $_status = 1;
 
 
 	/**
@@ -57,7 +57,7 @@ class Comment {
 	 * @param text $text 
 	 * @param char $author 
 	 * @param date $date 
-	 * @param bool $status 
+	 * @param int $status 
 	 * @return void
 	 */
 
@@ -68,6 +68,26 @@ class Comment {
 		$this->hydrate($comment);
 	}
 
+	/**
+	 * @access public
+	 * @param int $id
+	 * @return void
+	 */
+
+	public final  function setId($id) {
+
+		$id = (int) $id;
+
+		if (!is_int($id))
+		{
+		  trigger_error('the id should be a int type', E_USER_WARNING);
+		  return;
+		}
+		else
+		{
+			$this->_id = $id;
+		}
+	}
 
 	/**
 	 * @access public
@@ -75,7 +95,7 @@ class Comment {
 	 * @return void
 	 */
 
-	public final  function setPostId(int $postId) {
+	public final  function setPostId($postId) {
 
 		$postId = (int) $postId;
 
@@ -97,7 +117,7 @@ class Comment {
 	 * @return void
 	 */
 
-	public final  function setText(text $text) {
+	public final  function setText($text) {
 		if (!is_string($text))
 		{
 		  trigger_error('the text should be a text type', E_USER_WARNING);
@@ -115,7 +135,7 @@ class Comment {
 	 * @return void
 	 */
 
-	public final  function setAuthor(char $author) {
+	public final  function setAuthor($author) {
 		if (!is_string($author))
 		{
 		  trigger_error('the author should be a char type', E_USER_WARNING);
@@ -133,27 +153,30 @@ class Comment {
 	 * @return void
 	 */
 
-	public final  function setDate(date $date) {
-		if (!is_date($date))
+	public final  function setDate($date) {
+		/*if (!is_date($date))
 		{
 		  trigger_error('the date should be a date type', E_USER_WARNING);
 		  return;
 		}
-		else {
+		else {*/
 			$this->_date = $date;
-		}
+		/*}*/
 	}
 
 
 	/**
 	 * 		
 	 * @access public
-	 * @param bool $status 
+	 * @param int $status 
 	 * @return void
 	 */
 
-	public final  function setStatus(bool $status) {
-		if (!is_bool($status))
+	public final  function setStatus($status) {
+
+		$status = (int) $status;
+
+		if (!is_int($status))
 		{
 		  trigger_error('the status should be a int type', E_USER_WARNING);
 		  return;

@@ -1,6 +1,118 @@
+@font-face {
+    font-family: 'nightmare';
+    src: url('/projet/public/fonts/Nightmare.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'pacifico';
+    src: url('/projet/public/fonts/Pacifico.ttf') format('truetype');
+}
+
 html
 {
     width: 100%;
-    background-color: grey;
 }
 
+[class*="col-"], footer {
+    /*background-color: lightgreen;
+    border: 1px solid red;
+    border-radius: 6px;*/
+}
+
+[class*="row"]{
+    margin: 0px;
+}
+
+h1, h2, h3
+{
+    margin: 0px !important;
+}
+
+h2{
+    text-align: center;
+    text-decoration: underline;
+    font-family: 'pacifico';
+    color: rgb(3, 130, 153);
+    margin-bottom: 30px !important;
+}
+
+a
+{
+    text-decoration: none !important;
+}
+
+body
+{
+    background-image: url('');
+}
+
+header{
+    height: 550px;
+    border-bottom: solid 1px grey;
+    margin-bottom: 70px;
+}
+
+header nav{
+    background-color: rgba(2, 170, 200, 0.8);
+    border-bottom: solid grey 1px;
+}
+
+header nav a{
+    color: white;
+}
+
+navbar .container{
+    width: 70% !important;
+
+}
+
+.navbar-brand{
+    font-weight: 500;
+    font-family: 'pacifico';
+    font-size: 1.5em !important;
+    color: white;
+}
+
+/* start header part */
+
+.enTete{
+    padding-top: 210px;
+    color: aliceblue;
+    text-align: center;
+}
+
+.enTete h1{
+    font-size: 3.2rem;
+    font-family: 'nightmare';
+    margin-bottom: 20px !important;
+}
+
+.enTete .sousTitre{
+    font-size: 1.1em;
+}
+
+.enTete .tag{
+    font-size: 1.7em;
+}
+
+/* end header part */
+
+/* start footer part */
+
+footer{
+    height: 50px;
+    background-color: rgb(2, 170, 200);
+    border-top: solid grey 1px;
+}
+
+/* end footer part */
+
+@media (min-width: 768px) and (max-width: 1200px)
+{
+    
+}
+
+@media (max-width: 775px)
+{
+    
+}

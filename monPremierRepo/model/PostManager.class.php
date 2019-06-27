@@ -56,14 +56,45 @@ class PostManager {
 		$listPosts = [];
 
 		$db = $this->dbConnect();
-		$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts ORDER BY date DESC');
+		$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE status = 2 ORDER BY date ASC');
 
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))
 		{
+			/*if(is_string($data))
+			{
+				echo $data;
+				htmlspecialchars($data);
+			}*/
 			$listPosts[] = new Post($data);
 		}
 
 		return $listPosts;
+	}
+
+	/**
+	 * @access public
+	 * @return array
+	 */
+
+	public final  function getLastPosts($nbPosts) {
+		$lastPosts = [];
+		$nbPosts = $nbPosts - 3;
+
+		$db = $this->dbConnect();
+		$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE status = 2 ORDER BY date DESC LIMIT 3');
+		/*$q->execute(array($nbPosts));*/
+
+		while ($data = $q->fetch(PDO::FETCH_ASSOC))
+		{
+			/*if(is_string($data))
+			{
+				echo $data;
+				htmlspecialchars($data);
+			}*/
+			$lastPosts[] = new Post($data);
+		}
+
+		return $lastPosts;
 	}
 
 
@@ -74,6 +105,9 @@ class PostManager {
 	 */
 
 	public final  function getPost($postId) {
+
+		$postId = (int) $postId;
+
 		if(!is_int($postId))
 		{
 			trigger_error('the $postId should be a int type', E_USER_WARNING);
@@ -81,11 +115,11 @@ class PostManager {
 		}
 		else {
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, image, title, text, date, tag FROM posts WHERE id = '.$postid);
+			$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE id = '.$postId);
 
-			$data = $q->fetch(PDO::FECTH_ASSOC);
+			$data = $q->fetch(PDO::FETCH_ASSOC);
 
-			return new Comment($data);
+			return new Post($data);
 		}
 	}
 
@@ -125,6 +159,28 @@ class PostManager {
 
 	/**
 	 * @access public
+	 * @param
+	 * @return int numberPosts
+	 */
+
+	public final  function countPosts() {
+		$nbPosts;
+
+		$db = $this->dbConnect();
+		$q = $db->query('SELECT COUNT(*) AS nbPosts FROM posts WHERE status = 2');
+
+		while ($data = $q->fetch(PDO::FETCH_ASSOC))
+		{
+			$nbPosts = (int) $data['nbPosts'];
+		}
+
+		$nbPosts = (int)  $nbPosts;
+
+		return $nbPosts;
+	}
+
+	/**
+	 * @access public
 	 * @param PDO $db
 	 * @return void
 	 */
@@ -151,11 +207,6 @@ class PostManager {
 		{
 			die('Erreur : '.$e->getMessage());
 		}
-	}
-
-	public function showText()
-	{
-		echo 'montre le texte';
 	}
 
 }

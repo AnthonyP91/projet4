@@ -80,6 +80,26 @@ class Post {
 
 	/**
 	 * @access public
+	 * @param int $id
+	 * @return void
+	 */
+
+	public final  function setId($id) {
+
+		$id = (int) $id;
+
+		if (!is_int($id))
+		{
+		  trigger_error('the id should be a little int type', E_USER_WARNING);
+		  return;
+		}
+		else {
+			$this->_id = $id;
+		}
+	}
+
+	/**
+	 * @access public
 	 * @param string $image 
 	 * @return void
 	 */

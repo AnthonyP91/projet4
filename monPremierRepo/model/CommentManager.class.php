@@ -50,11 +50,11 @@ class CommentManager {
 	 * @return array
 	 */
 
-	public final  function getComments() {
+	public final  function getComments($postId) {
 		$listComments = [];
 
 		$db = $this->dbConnect();
-		$q = $db->query('SELECT id, text, author, date, status FROM comments ORDER BY date DESC');
+		$q = $db->query('SELECT id, postId, text, author, date, status FROM comments WHERE postId = '.$postId);
 
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))
 		{

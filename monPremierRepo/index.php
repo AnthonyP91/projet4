@@ -20,20 +20,29 @@ require('/controller/controller.php');
 
 if(isset($_GET['action']))
 {
-    if($_GET['action'] = 'listPosts')
-    {
-        listPosts($postManager);
-    }
-    else if($_GET['action'] = 'postWithComments')
+
+    if($_GET['action'] == 'post')
     {
         if(isset($_GET['postId']) && $_GET['postId'] > 0)
         {
-            postWithComments($postManager, $commentManager);
+            post($postManager, $commentManager);
         }
         else
         {
             echo 'Erreur : aucun identifiant de billet envoyé';
         }
+    }
+    else if($_GET['action'] == 'listPosts')
+    {
+        listPosts($postManager);
+    }
+    else if($_GET['action'] == 'biographie')
+    {
+        require('/view/biographieView.php');
+    }
+    else if($_GET['action'] == 'listBooks')
+    {
+        require('/view/listBooksView.php');
     }
     else
     {
@@ -42,5 +51,5 @@ if(isset($_GET['action']))
 }
 else
 {
-    listPosts($postManager);
+    lastPosts($postManager);
 }

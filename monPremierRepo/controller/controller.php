@@ -4,18 +4,29 @@ require_once('/model/Post.class.php');
 require_once('/model/CommentManager.class.php');
 require_once('/model/Comment.class.php');
 
+function lastPosts($postManager)
+{
+    $nbPosts = $postManager->countPosts();
+    $lastPosts = $postManager->getLastPosts($nbPosts);
+
+    require('/view/homeView.php');
+}
+
 function listPosts($postManager)
 {
     $listPosts = $postManager->getPosts();
 
-    require('/view/indexView.php');
+    $nbPosts = $postManager->countPosts();
+    $nbPosts = $nbPosts / 6; // for the pagination
+
+    require('/view/adminCreatePostView.php');
 }
 
-function postWithComments($postManager, $commentManager)
+function post($postManager, $commentManager)
 {
     $post = $postManager->getPost($_GET['postId']);
 
     $listComments = $commentManager->getComments($_GET['postId']);
 
-    require('/view/postView.php');
+    require('/view/adminOptionView.php');
 }
