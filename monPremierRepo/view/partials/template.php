@@ -20,6 +20,8 @@
     <link href="/projet/public/css/listBooksView.css" rel="stylesheet" />
     <link href="/projet/public/css/adminOptionView.css" rel="stylesheet" />
     <link href="/projet/public/css/adminCreatePostView.css" rel="stylesheet" />
+    <link href="/projet/public/css/editorView.css" rel="stylesheet" />
+    <link href="/projet/public/css/adminFormView.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
   </head>
@@ -31,14 +33,15 @@
             <nav class="navbar navbar-default fixed-top">
               <div class="container">
                 <div class="navbar-header">
+                  <a href="/projet/index.php?action=connexionAdmin"><i class="fas fa-user-lock"></i></a><!-- <i class="fas fa-lock-open"></i> -->
                   <a class="navbar-brand" href="/projet/index.php?action=biographie">Jean FORTEROCHE</a>
                 </div>
                 <div class=""> <!--collapse navbar-collapse-->
                   <ul class="nav navbar-nav navbar-right mr-auto">
-                    <li class="nav-item active"><a href="/projet/index.php">Accueil</a></li>
+                    <li class="nav-item"><a href="/projet/index.php">Accueil</a></li>
                     <li class="nav-item"><a href="/projet/index.php?action=listPosts">Liste des chapitres</a></li>
                     <li class="nav-item"><a href="/projet/index.php?action=biographie">Biographie</a></li>
-                    <li class="nav-item disable"><a href="/projet/index.php?action=listBooks">Mes romans</a></li>
+                    <li class="nav-item"><a href="/projet/index.php?action=listBooks">Mes romans</a></li>
                   </ul>
                 </div>
               </div>
@@ -50,15 +53,17 @@
                 <p class="sousTitre"><?= $textEnTete ?></p>
               <?php } ?>
               <?php if(isset($tag)){?>
-                <p class="tag"><?= $tag ?></p>
+                <p class="tag">Chapitre <?= $tag ?></p>
               <?php } ?>
             </div>
           
         </header>
+        
+        <div style="margin-bottom:50px">
+          <?= $content ?>
+        </div>
 
-        <?= $content ?>
-
-        <footer>
+        <footer class="fixed-bottom">
 
         </footer>
 

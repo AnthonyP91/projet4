@@ -149,12 +149,13 @@ class PostManager {
 
 	/**
 	 * @access public
-	 * @param objet $post 
+	 * @param string postId
 	 * @return void
 	 */
 
-	public final  function deletePost(Post $post) {
-		$this->_db->exec('DELETE FROM posts WHERE id = '.$post->id());
+	public final  function deletePost($postId) {
+		var_dump($postId);
+		$this->_db->exec('DELETE FROM posts WHERE id =\''. $postId .'\'');
 	}
 
 	/**

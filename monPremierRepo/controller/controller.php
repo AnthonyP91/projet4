@@ -19,7 +19,7 @@ function listPosts($postManager)
     $nbPosts = $postManager->countPosts();
     $nbPosts = $nbPosts / 6; // for the pagination
 
-    require('/view/adminCreatePostView.php');
+    require('/view/listPostsView.php');
 }
 
 function post($postManager, $commentManager)
@@ -28,5 +28,29 @@ function post($postManager, $commentManager)
 
     $listComments = $commentManager->getComments($_GET['postId']);
 
-    require('/view/adminOptionView.php');
+    require('/view/postView.php');
+}
+
+function editPost($postManager)
+{
+    $post = $postManager->getPost($_GET['postId']);
+
+    require('/view/editorView.php');
+}
+
+function deletePost($postManager)
+{
+    $post = $postManager->deletePost($_GET['postId']);
+}
+
+function getCommentsreported($commentManager)
+{
+    $listComments = $commentManager->getCommentsReported();
+
+    require('/view/listCommentsView.php');
+}
+
+function reportingComment($commentManager)
+{
+    $commentManager->reportingComment($_GET['id']);
 }

@@ -44,6 +44,61 @@ if(isset($_GET['action']))
     {
         require('/view/listBooksView.php');
     }
+    else if($_GET['action'] == 'addPost')
+    {
+        require('/view/editorView.php');
+    }
+    else if($_GET['action'] == 'editPost')
+    {
+        if(isset($_GET['postId']) && $_GET['postId'] > 0)
+        {
+            editPost($postManager);
+        }
+        else
+        {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
+    else if($_GET['action'] == 'deletePost')
+    {
+        if(isset($_GET['postId']) && $_GET['postId'] > 0)
+        {
+            deletePost($postManager);
+            listPosts($postManager);
+        }
+        else
+        {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
+    else if($_GET['action'] == 'listCommentsReported')
+    {
+        getCommentsReported($commentManager);
+    }
+    else if($_GET['action'] == 'connexionAdmin')
+    {
+        require('/view/adminFormView.php');
+    }
+    else if($_GET['action'] == 'reportingComment')
+    {
+        if(isset($_GET['id']) && $_GET['id'] > 0)
+        {
+            reportingComment($commentManager);
+        }
+        else
+        {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+
+        if(isset($_GET['postId']) && $_GET['postId'] > 0)
+        {
+            post($postManager, $commentManager);
+        }
+        else
+        {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
     else
     {
         echo 'Erreur : aucune action identifiée';

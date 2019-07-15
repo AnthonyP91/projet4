@@ -47,6 +47,7 @@ class CommentManager {
 
 	/**
 	 * @access public
+	 * @param int $postId
 	 * @return array
 	 */
 
@@ -54,7 +55,26 @@ class CommentManager {
 		$listComments = [];
 
 		$db = $this->dbConnect();
-		$q = $db->query('SELECT id, postId, text, author, date, status FROM comments WHERE postId = '.$postId);
+		$q = $db->query('SELECT id, postId, text, author, date, status FROM comments WHERE postId = \''.$postId.'\' ORDER BY date DESC');
+
+		while ($data = $q->fetch(PDO::FETCH_ASSOC))
+		{
+			$listComments[] = new Comment($data);
+		}
+
+		return $listComments;
+	}
+
+		/**
+	 * @access public
+	 * @return array
+	 */
+
+	public final  function getCommentsReported() {
+		$listComments = [];
+
+		$db = $this->dbConnect();
+		$q = $db->query('SELECT id, postId, text, author, date, status FROM comments WHERE status = 0 ORDER BY date DESC');
 
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))
 		{
@@ -66,21 +86,13 @@ class CommentManager {
 
 	/**
 	 * @access public
-	 * @param objet $comment
+	 * @param int $id
 	 * @return void
 	 */
 
-	public final  function updateComment(Comment $comment) {
+	public final  function reportingComment($id) {
 		$db = $this->dbConnect();
-		$q = $db->prepare('UPDATE comments SET text = :text, author = :author, date = :date, status = :status WHERE id = :id');
-
-		$q->bindValue(':id', $comment->id(), PDO::PARAM_INT);
-		$q->bindValue(':text', $comment->text());
-		$q->bindValue(':author', $comment->author());
-		$q->bindValue(':date', $comment->date());
-		$q->bindValue(':status', $comment->status(), PDO::PARAM_INT);
-
-		$q->execute();
+		$q = $db->query('UPDATE comments SET status = 0 WHERE id =\' '. $id .' \' ');
 	}
 
 
