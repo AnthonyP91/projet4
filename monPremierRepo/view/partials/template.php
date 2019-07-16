@@ -1,3 +1,17 @@
+<?php
+
+  if(session_status() === 1)
+  {
+    session_start();
+
+    if(!isset($_SESSION['admin']))
+    {
+        $_SESSION['admin'] = false;
+    }
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,11 +43,10 @@
   <body>
 
         <header style="background-image:url('/projet/public/images/aurora.jpg')">
-          
             <nav class="navbar navbar-default fixed-top">
               <div class="container">
                 <div class="navbar-header">
-                  <a href="/projet/index.php?action=connexionAdmin"><i class="fas fa-user-lock"></i></a><!-- <i class="fas fa-lock-open"></i> -->
+                  <a href="/projet/index.php?action=connexionAdmin"><i class="fas fa-user-lock"></i></a><?php if($_SESSION['admin'] == true){ ?> <i class="fas fa-lock-open" style="color:rgb(2, 172, 79)"></i> <?php } ?>
                   <a class="navbar-brand" href="/projet/index.php?action=biographie">Jean FORTEROCHE</a>
                 </div>
                 <div class=""> <!--collapse navbar-collapse-->
@@ -56,12 +69,13 @@
                 <p class="tag">Chapitre <?= $tag ?></p>
               <?php } ?>
             </div>
-          
         </header>
-        
+
         <div style="margin-bottom:50px">
           <?= $content ?>
         </div>
+
+        
 
         <footer class="fixed-bottom">
 

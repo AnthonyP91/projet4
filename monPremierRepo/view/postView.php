@@ -1,16 +1,27 @@
-<?php $tag = utf8_encode($post->tag()); ?>
+<?php 
+session_start();
+
+if(!isset($_SESSION['admin']))
+{
+    $_SESSION['admin'] = false;
+}
+
+$tag = utf8_encode($post->tag()); 
+?>
 
 <?php ob_start(); ?>
 
 <div class="container">
-    <div id="encartOption">
-        <div>
-            <i class="fas fa-edit"></i><a href="/projet/index.php?action=editPost&postId=<?= $post->id() ?>">Modifier</a>
+    <?php if($_SESSION['admin'] == true){ ?>
+        <div id="encartOption">
+            <div>
+                <i class="fas fa-edit"></i><a href="/projet/index.php?action=editPost&postId=<?= $post->id() ?>">Modifier</a>
+            </div>
+            <div>
+                <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deletePost&postId=<?= $post->id() ?>">Supprimer</a>
+            </div>
         </div>
-        <div>
-            <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deletePost&postId=<?= $post->id() ?>">Supprimer</a>
-        </div>
-    </div>
+    <?php } ?>
     <section id="post" class="row" style="width:100%;margin:0%;">
         <div class="col-sm-12 sectionPost">
             <h2><?= utf8_encode($post->title()) ?></h2>
@@ -91,7 +102,9 @@
                                         <a href="/projet/index.php?action=reportingComment&id=<?= $value->id() ?>&postId=<?= $value->postId() ?>"><h6>Signaler</h6></a>
                                     </div>
                                     <div class="col-sm-6 display" style="justify-content:center">
-                                        <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deleteComment&commentId=<?= $value->id() ?>"><h6>Supprimer</h6></a>
+                                        <?php if($_SESSION['admin'] == true){ ?>
+                                            <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deleteComment&commentId=<?= $value->id() ?>"><h6>Supprimer</h6></a>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
