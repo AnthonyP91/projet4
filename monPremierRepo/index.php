@@ -32,6 +32,17 @@ if(isset($_GET['action']))
             echo 'Erreur : aucun identifiant de billet envoyé';
         }
     }
+    else if($_GET['action'] == 'previousPost' || $_GET['action'] == 'nextPost')
+    {
+        if(isset($_GET['postTag']) && $_GET['postTag'] > 0)
+        {
+            postByTag($postManager, $commentManager);
+        }
+        else
+        {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
     else if($_GET['action'] == 'listPosts')
     {
         listPosts($postManager);

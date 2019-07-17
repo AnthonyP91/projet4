@@ -32,20 +32,30 @@ $tag = utf8_encode($post->tag());
             </div>
             <p class="datePost">Posté le <?= $post->date() ?>.</p>
         </div>
-        <!--<div class="switchPost">
-            <div>
-                <a href="/projet/index.php?action=previousPost">Chapitre précédent</a>  mettre variable postId - 1 dans url 
-            </div>
-            <div>
-                <a href="/projet/index.php?action=nextPost">Chapitre suivant</a> mettre variable postId + 1 dans url 
-            </div>
-        </div>-->
         <div class="row switchPost">
             <div class="col-sm-6 previousPost">
-                <a href="/projet/index.php?action=previousPost">Chapitre précédent</a>
+                <?php foreach($listTags as $value)
+                {   
+                    if($value[0] == $post->tag() - 1)
+                    {
+                    ?>
+                        <a href="/projet/index.php?action=previousPost&postTag=<?= $post->tag() - 1 ?>">Chapitre précédent</a>
+                    <?php
+                    }
+                }
+                ?>
             </div>
             <div class="col-sm-6 nextPost">
-                <a href="/projet/index.php?action=nextPost">Chapitre suivant</a>
+                <?php foreach($listTags as $value)
+                {   
+                    if($value[0] == $post->tag() + 1)
+                    {
+                    ?>
+                        <a href="/projet/index.php?action=nextPost&postTag=<?= $post->tag() + 1 ?>">Chapitre suivant</a>
+                    <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </section>

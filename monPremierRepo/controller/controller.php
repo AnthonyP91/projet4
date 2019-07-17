@@ -26,7 +26,20 @@ function post($postManager, $commentManager)
 {
     $post = $postManager->getPost($_GET['postId']);
 
+    $listTags = $postManager->listTags();
+
     $listComments = $commentManager->getComments($_GET['postId']);
+
+    require('/view/postView.php');
+}
+
+function postByTag($postManager, $commentManager)
+{
+    $post = $postManager->getPostByTag($_GET['postTag']);
+
+    $listTags = $postManager->listTags();
+
+    $listComments = $commentManager->getComments($post->id());
 
     require('/view/postView.php');
 }

@@ -65,7 +65,7 @@ class CommentManager {
 		return $listComments;
 	}
 
-		/**
+	/**
 	 * @access public
 	 * @return array
 	 */

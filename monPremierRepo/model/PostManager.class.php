@@ -60,11 +60,6 @@ class PostManager {
 
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))
 		{
-			/*if(is_string($data))
-			{
-				echo $data;
-				htmlspecialchars($data);
-			}*/
 			$listPosts[] = new Post($data);
 		}
 
@@ -82,15 +77,9 @@ class PostManager {
 
 		$db = $this->dbConnect();
 		$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE status = 2 ORDER BY date DESC LIMIT 3');
-		/*$q->execute(array($nbPosts));*/
 
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))
 		{
-			/*if(is_string($data))
-			{
-				echo $data;
-				htmlspecialchars($data);
-			}*/
 			$lastPosts[] = new Post($data);
 		}
 
@@ -121,6 +110,51 @@ class PostManager {
 
 			return new Post($data);
 		}
+	}
+
+	/**
+	 * @access public
+	 * @param int $postTag
+	 * @return objet
+	 */
+
+	public final  function getPostByTag($postTag) {
+
+		$postTag = (int) $postTag;
+
+		if(!is_int($postTag))
+		{
+			trigger_error('the $postTag should be a int type', E_USER_WARNING);
+		  	return;
+		}
+		else {
+			$db = $this->dbConnect();
+			$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE tag = '.$postTag);
+
+			$data = $q->fetch(PDO::FETCH_ASSOC);
+
+			return new Post($data);
+		}
+	}
+
+	/**
+	 * @access public
+	 * @param
+	 * @return array
+	 */
+
+	public final  function listTags() {
+		$listTags = [];
+
+		$db = $this->dbConnect();
+		$q = $db->query('SELECT tag FROM posts');
+
+		while ($data = $q->fetch(PDO::FETCH_NUM))
+		{
+			$listTags[] = $data;
+		}
+
+		return $listTags;
 	}
 
 
@@ -154,7 +188,6 @@ class PostManager {
 	 */
 
 	public final  function deletePost($postId) {
-		var_dump($postId);
 		$this->_db->exec('DELETE FROM posts WHERE id =\''. $postId .'\'');
 	}
 
