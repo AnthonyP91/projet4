@@ -28,19 +28,18 @@ class CommentManager {
 	
 	/**
 	 * @access public
-	 * @param objet $comment
+	 * @param string $author et $text
 	 * @return void
 	 */
 
-	public function addComment(Comment $comment)
+	public function addComment($author, $text, $postId)
 	{
 		$db = $this->dbConnect();
-		$q = $db->prepare('INSERT INTO comments(text, author, date, status) VALUE(:text, :author, :date, :status)');
+		$q = $db->prepare('INSERT INTO comments(text, author, postId) VALUE(:text, :author, :postId)');
 
-		$q->bindValue(':text', $comment->text());
-		$q->bindValue(':author', $comment->author());
-		$q->bindValue(':date', $comment->date());
-		$q->bindValue(':date', Comment::STATUS_NORMAL);
+		$q->bindValue(':text', $text);
+		$q->bindValue(':author', $author);
+		$q->bindValue(':postId', $postId);
 		
 		$q->execute();
 	}
@@ -98,13 +97,13 @@ class CommentManager {
 
 	/**
 	 * @access public
-	 * @param objet $comment
+	 * @param int $commentId
 	 * @return void
 	 */
 
-	public final  function deleteComment(Comment $comment) {
+	public final  function deleteComment($commentId) {
 		$db = $this->dbConnect();
-		$db->exec('DELETE FROM comments WHERE id = '.$comment->id());
+		$db->exec('DELETE FROM comments WHERE id = '.$commentId);
 	}
 
 	/**

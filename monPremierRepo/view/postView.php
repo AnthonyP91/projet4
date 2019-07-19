@@ -71,7 +71,7 @@ $tag = utf8_encode($post->tag());
                 </div>
             </div>
             <div id="commentForm" class="row">
-                <form methode="post" action="">
+                <form method="post" action="/projet/index.php?action=addComment&postId=<?= $post->id() ?>">
                     <p>
                         <label for="pseudo">Votre pseudo : </label></br>
                         <input type="text" name="pseudo" id="pseudoUser" class="inputStyle">
@@ -113,7 +113,7 @@ $tag = utf8_encode($post->tag());
                                     </div>
                                     <div class="col-sm-6 display" style="justify-content:center">
                                         <?php if($_SESSION['admin'] == true){ ?>
-                                            <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deleteComment&commentId=<?= $value->id() ?>"><h6>Supprimer</h6></a>
+                                            <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deleteComment&commentId=<?= $value->id() ?>&postId=<?= $value->postId() ?>"><h6>Supprimer</h6></a>
                                         <?php } ?>
                                     </div>
                                 </div>

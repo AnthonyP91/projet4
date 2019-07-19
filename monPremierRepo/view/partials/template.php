@@ -85,6 +85,7 @@
     <script src="/projet/public/js/index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/nblqpg4n8xyby04ejqkb104mbvg1z7kch3lo2fhc9qqyd6e2/tinymce/5/tinymce.min.js"></script>
   </body>
 
 </html>

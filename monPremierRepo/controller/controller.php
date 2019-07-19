@@ -67,3 +67,13 @@ function reportingComment($commentManager)
 {
     $commentManager->reportingComment($_GET['id']);
 }
+
+function addComment($commentManager)
+{
+    $commentManager->addComment($_POST['pseudo'], $_POST['commentUser'], $_GET['postId']);
+}
+
+function deleteComment($commentManager)
+{
+    $commentManager->deleteComment($_GET['commentId']);
+}

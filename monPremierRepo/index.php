@@ -40,7 +40,7 @@ if(isset($_GET['action']))
         }
         else
         {
-            echo 'Erreur : aucun identifiant de billet envoyé';
+            echo 'Erreur : aucun tag de billet envoyé';
         }
     }
     else if($_GET['action'] == 'listPosts')
@@ -90,6 +90,19 @@ if(isset($_GET['action']))
     {
         require('/view/adminFormView.php');
     }
+    else if($_GET['action'] == 'addComment')
+    {
+        addComment($commentManager);
+
+        if(isset($_GET['postId']) && $_GET['postId'] > 0)
+        {
+            post($postManager, $commentManager);
+        }
+        else
+        {
+            echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
     else if($_GET['action'] == 'reportingComment')
     {
         if(isset($_GET['id']) && $_GET['id'] > 0)
@@ -98,7 +111,27 @@ if(isset($_GET['action']))
         }
         else
         {
+            echo 'Erreur : aucun identifiant de commentaire envoyé';
+        }
+
+        if(isset($_GET['postId']) && $_GET['postId'] > 0)
+        {
+            post($postManager, $commentManager);
+        }
+        else
+        {
             echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
+    else if($_GET['action'] == 'deleteComment')
+    {
+        if(isset($_GET['commentId']) && $_GET['commentId'] > 0)
+        {
+            deleteComment($commentManager);
+        }
+        else
+        {
+            echo 'Erreur : aucun identifiant de commentaire envoyé';
         }
 
         if(isset($_GET['postId']) && $_GET['postId'] > 0)
