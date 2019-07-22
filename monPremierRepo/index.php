@@ -36,7 +36,7 @@ if(isset($_GET['action']))
     {
         if(isset($_GET['postTag']) && $_GET['postTag'] > 0)
         {
-            postByTag($postManager, $commentManager);
+            postByNavTag($postManager, $commentManager);
         }
         else
         {
@@ -55,9 +55,22 @@ if(isset($_GET['action']))
     {
         require('/view/listBooksView.php');
     }
+    else if($_GET['action'] == 'goPostEditor')
+    {
+        $action = "addPost";
+        require('/view/editorView.php');
+    }
     else if($_GET['action'] == 'addPost')
     {
-        require('/view/editorView.php');
+        if(isset($_POST['nbChapitre']) && isset($_POST['titleEditor']) && isset($_POST['contentEditorAdmin']))
+        {
+            addPost($postManager);
+            postByTag($postManager, $commentManager);
+        }
+        else
+        {
+            echo "SuperGoblale POST manquante";
+        }
     }
     else if($_GET['action'] == 'editPost')
     {
@@ -68,6 +81,18 @@ if(isset($_GET['action']))
         else
         {
             echo 'Erreur : aucun identifiant de billet envoyé';
+        }
+    }
+    else if($_GET['action'] == 'updatePost')
+    {
+        if(isset($_POST['nbChapitre']) && isset($_POST['titleEditor']) && isset($_POST['contentEditorAdmin']) && isset($_GET['postId']))
+        {
+            updatePost($postManager);
+            postByTag($postManager, $commentManager);
+        }
+        else
+        {
+            echo "SuperGoblale POST manquante";
         }
     }
     else if($_GET['action'] == 'deletePost')

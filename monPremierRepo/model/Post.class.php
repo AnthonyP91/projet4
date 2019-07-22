@@ -19,13 +19,6 @@ class Post {
 	 * @var char
 	 * @access private
 	 */
-	private  $_image;
-
-	/**
-	 * 
-	 * @var char
-	 * @access private
-	 */
 	private  $_title;
 
 	/**
@@ -59,8 +52,6 @@ class Post {
 
 	/**
 	 * @access public
-	 * @param char $thumbnail 
-	 * @param char $image 
 	 * @param char $title 
 	 * @param text $text 
 	 * @param date $date 
@@ -97,24 +88,6 @@ class Post {
 			$this->_id = $id;
 		}
 	}
-
-	/**
-	 * @access public
-	 * @param string $image 
-	 * @return void
-	 */
-
-	public final  function setImage($image) {
-		if (!is_string($image))
-		{
-		  trigger_error('the image should be a little text type', E_USER_WARNING);
-		  return;
-		}
-		else {
-			$this->_image = $image;
-		}
-	}
-
 
 	/**
 	 * @access public
@@ -217,16 +190,6 @@ class Post {
 
 	public final  function id() {
 		return $this->_id;
-	}
-
-
-	/**
-	 * @access public
-	 * @return char
-	 */
-
-	public final  function image() {
-		return $this->_image;
 	}
 
 

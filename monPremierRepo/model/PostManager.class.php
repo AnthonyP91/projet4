@@ -28,21 +28,18 @@ class PostManager {
 
 	/**
 	 * @access public
-	 * @param objet $post
+	 * @param 
 	 * @return void
 	 */
 
-	public function addPost(Post $post)
+	public function addPost($tag, $title, $text)
 	{
 		$db = $this->dbConnect();
-		$q = $db->prepare('INSERT INTO posts(image, title, text, date, tag, status) VALUES(:image, :title, :text, :date, :tag, :status)');
+		$q = $db->prepare('INSERT INTO posts(title, text, tag) VALUES(:title, :text, :tag)');
 
-		$q->bindValue(':image', $post->image());
-		$q->bindValue(':title', $post->title());
-		$q->bindValue(':text', $post->text());
-		$q->bindValue(':date', $post->date());
-		$q->bindValue(':tag', $post->tag());
-		$q->bindValue(':status', $post->status(), PDO::PARAM_INT);
+		$q->bindValue(':title', $title);
+		$q->bindValue(':text', $text);
+		$q->bindValue(':tag', $tag);
 
 		$q->execute();
 	}
@@ -56,7 +53,7 @@ class PostManager {
 		$listPosts = [];
 
 		$db = $this->dbConnect();
-		$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE status = 2 ORDER BY date ASC');
+		$q = $db->query('SELECT id, title, text, date, tag, status FROM posts WHERE status = 2 ORDER BY tag ASC');
 
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))
 		{
@@ -76,7 +73,7 @@ class PostManager {
 		$nbPosts = $nbPosts - 3;
 
 		$db = $this->dbConnect();
-		$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE status = 2 ORDER BY date DESC LIMIT 3');
+		$q = $db->query('SELECT id, title, text, date, tag, status FROM posts WHERE status = 2 ORDER BY tag DESC LIMIT 3');
 
 		while ($data = $q->fetch(PDO::FETCH_ASSOC))
 		{
@@ -104,7 +101,7 @@ class PostManager {
 		}
 		else {
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE id = '.$postId);
+			$q = $db->query('SELECT id, title, text, date, tag, status FROM posts WHERE id = '.$postId);
 
 			$data = $q->fetch(PDO::FETCH_ASSOC);
 
@@ -129,7 +126,7 @@ class PostManager {
 		}
 		else {
 			$db = $this->dbConnect();
-			$q = $db->query('SELECT id, image, title, text, date, tag, status FROM posts WHERE tag = '.$postTag);
+			$q = $db->query('SELECT id, title, text, date, tag, status FROM posts WHERE tag = '.$postTag);
 
 			$data = $q->fetch(PDO::FETCH_ASSOC);
 
@@ -160,22 +157,19 @@ class PostManager {
 
 	/**
 	 * @access public
-	 * @param int $postId 
+	 * @param objet $post
 	 * @return objet
 	 */
 
 	public final  function updatePost(Post $post) {
 
 		$db = $this->dbConnect();
-		$q = $db->prepare('UPDATE posts SET image = :image, title = :title, text = :text; date = :date, tag = :tag, status = :status WHERE id = :id');
+		$q = $db->prepare('UPDATE posts SET title = :title, text = :text, tag = :tag WHERE id = :id');
 
 		$q->bindValue(':id', $post->id(), PDO::PARAM_INT);
-		$q->bindValue(':image', $post->image());
 		$q->bindValue(':title', $post->title());
 		$q->bindValue(':text', $post->text());
-		$q->bindValue(':date', $post->date());
 		$q->bindValue(':tag', $post->tag());
-		$q->bindValue(':status', $post->status(), PDO::PARAM_INT);
 
 		$q->execute();
 	}

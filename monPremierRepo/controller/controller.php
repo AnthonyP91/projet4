@@ -33,7 +33,7 @@ function post($postManager, $commentManager)
     require('/view/postView.php');
 }
 
-function postByTag($postManager, $commentManager)
+function postByNavTag($postManager, $commentManager)
 {
     $post = $postManager->getPostByTag($_GET['postTag']);
 
@@ -44,11 +44,41 @@ function postByTag($postManager, $commentManager)
     require('/view/postView.php');
 }
 
+function postByTag($postManager, $commentManager)
+{
+    $post = $postManager->getPostByTag($_POST['nbChapitre']);
+
+    $listTags = $postManager->listTags();
+
+    $listComments = $commentManager->getComments($post->id());
+
+    require('/view/postView.php');
+}
+
+function addPost($postManager)
+{
+    $postManager->addPost($_POST['nbChapitre'], utf8_decode($_POST['titleEditor']), utf8_decode($_POST['contentEditorAdmin']));
+}
+
 function editPost($postManager)
 {
     $post = $postManager->getPost($_GET['postId']);
 
+    $action = "updatePost";
+
     require('/view/editorView.php');
+}
+
+function updatePost($postManager)
+{
+    $arrayPost = array(
+        'id' => $_GET['postId'],
+        'title' => utf8_decode($_POST['titleEditor']),
+        'text' => utf8_decode($_POST['contentEditorAdmin']),
+        'tag' => $_POST['nbChapitre']);
+    $post = new Post($arrayPost);
+
+    $postManager->updatePost($post);
 }
 
 function deletePost($postManager)
@@ -70,7 +100,7 @@ function reportingComment($commentManager)
 
 function addComment($commentManager)
 {
-    $commentManager->addComment($_POST['pseudo'], $_POST['commentUser'], $_GET['postId']);
+    $commentManager->addComment( utf8_decode($_POST['pseudo']), utf8_decode($_POST['commentUser']), $_GET['postId']);
 }
 
 function deleteComment($commentManager)
