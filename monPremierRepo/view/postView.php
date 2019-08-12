@@ -6,7 +6,7 @@ if(!isset($_SESSION['admin']))
     $_SESSION['admin'] = false;
 }
 
-$tag = utf8_encode($post->tag()); 
+$tag = $post->tag(); 
 ?>
 
 <?php ob_start(); ?>
@@ -15,19 +15,19 @@ $tag = utf8_encode($post->tag());
     <?php if($_SESSION['admin'] == true){ ?>
         <div id="encartOption">
             <div>
-                <i class="fas fa-edit"></i><a href="/projet/index.php?action=editPost&postId=<?= $post->id() ?>">Modifier</a>
+                <i class="fas fa-edit"></i><a href="/index.php?action=editPost&postId=<?= $post->id() ?>">Modifier</a>
             </div>
             <div>
-                <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deletePost&postId=<?= $post->id() ?>">Supprimer</a>
+                <i class="far fa-trash-alt"></i><a href="/index.php?action=deletePost&postId=<?= $post->id() ?>">Supprimer</a>
             </div>
         </div>
     <?php } ?>
     <section id="post" class="row" style="width:100%;margin:0%;">
         <div class="col-sm-12 sectionPost">
-            <h2><?= utf8_encode($post->title()) ?></h2>
+            <h2><?= $post->title() ?></h2>
             <div class="text">
                 <p>
-                    <?= utf8_encode($post->text()) ?>
+                    <?= $post->text() ?>
                 </p>
             </div>
             <p class="datePost">Posté le <?= $post->date() ?>.</p>
@@ -39,7 +39,7 @@ $tag = utf8_encode($post->tag());
                     if($value[0] == $post->tag() - 1)
                     {
                     ?>
-                        <a href="/projet/index.php?action=previousPost&postTag=<?= $post->tag() - 1 ?>">Chapitre précédent</a>
+                        <a href="/index.php?action=previousPost&postTag=<?= $post->tag() - 1 ?>">Chapitre précédent</a>
                     <?php
                     }
                 }
@@ -51,7 +51,7 @@ $tag = utf8_encode($post->tag());
                     if($value[0] == $post->tag() + 1)
                     {
                     ?>
-                        <a href="/projet/index.php?action=nextPost&postTag=<?= $post->tag() + 1 ?>">Chapitre suivant</a>
+                        <a href="/index.php?action=nextPost&postTag=<?= $post->tag() + 1 ?>">Chapitre suivant</a>
                     <?php
                     }
                 }
@@ -71,7 +71,7 @@ $tag = utf8_encode($post->tag());
                 </div>
             </div>
             <div id="commentForm" class="row">
-                <form method="post" action="/projet/index.php?action=addComment&postId=<?= $post->id() ?>">
+                <form method="post" action="/index.php?action=addComment&postId=<?= $post->id() ?>">
                     <p>
                         <label for="pseudo">Votre pseudo : </label></br>
                         <input type="text" name="pseudo" id="pseudoUser" class="inputStyle">
@@ -99,8 +99,8 @@ $tag = utf8_encode($post->tag());
                 ?>
                     <div class="comment <?php $status = $value->status(); $status = (int) $status; if($status == 0){ ?>reported<?php } ?>">
                         <div class="commentContent" style="padding: 10px 20px;">
-                            <h5><?= utf8_encode($value->author()) ?></h5>
-                            <p><?= utf8_encode($value->text())?></p>
+                            <h5><?= htmlspecialchars($value->author()) ?></h5>
+                            <p><?= htmlspecialchars($value->text()) ?></p>
                         </div>
                         <div class="row commentFooter">
                             <div class="col-md-6">
@@ -109,11 +109,11 @@ $tag = utf8_encode($post->tag());
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-sm-6" style="text-align:center">
-                                        <a href="/projet/index.php?action=reportingComment&id=<?= $value->id() ?>&postId=<?= $value->postId() ?>"><h6>Signaler</h6></a>
+                                        <a href="/index.php?action=reportingComment&id=<?= $value->id() ?>&postId=<?= $value->postId() ?>"><h6>Signaler</h6></a>
                                     </div>
                                     <div class="col-sm-6 display" style="justify-content:center">
                                         <?php if($_SESSION['admin'] == true){ ?>
-                                            <i class="far fa-trash-alt"></i><a href="/projet/index.php?action=deleteComment&commentId=<?= $value->id() ?>&postId=<?= $value->postId() ?>"><h6>Supprimer</h6></a>
+                                            <i class="far fa-trash-alt"></i><a href="/index.php?action=deleteComment&commentId=<?= $value->id() ?>&postId=<?= $value->postId() ?>"><h6>Supprimer</h6></a>
                                         <?php } ?>
                                     </div>
                                 </div>

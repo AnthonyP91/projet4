@@ -1,15 +1,15 @@
 <?php
-require_once('/model/PostManager.class.php');
-require_once('/model/Post.class.php');
-require_once('/model/CommentManager.class.php');
-require_once('/model/Comment.class.php');
+require_once('model/PostManager.class.php');
+require_once('model/Post.class.php');
+require_once('model/CommentManager.class.php');
+require_once('model/Comment.class.php');
 
 function lastPosts($postManager)
 {
     $nbPosts = $postManager->countPosts();
     $lastPosts = $postManager->getLastPosts($nbPosts);
 
-    require('/view/homeView.php');
+    require('view/homeView.php');
 }
 
 function listPosts($postManager)
@@ -19,7 +19,7 @@ function listPosts($postManager)
     $nbPosts = $postManager->countPosts();
     $nbPosts = $nbPosts / 6; // for the pagination
 
-    require('/view/listPostsView.php');
+    require('view/listPostsView.php');
 }
 
 function post($postManager, $commentManager)
@@ -30,7 +30,7 @@ function post($postManager, $commentManager)
 
     $listComments = $commentManager->getComments($_GET['postId']);
 
-    require('/view/postView.php');
+    require('view/postView.php');
 }
 
 function postByNavTag($postManager, $commentManager)
@@ -41,7 +41,7 @@ function postByNavTag($postManager, $commentManager)
 
     $listComments = $commentManager->getComments($post->id());
 
-    require('/view/postView.php');
+    require('view/postView.php');
 }
 
 function postByTag($postManager, $commentManager)
@@ -52,12 +52,12 @@ function postByTag($postManager, $commentManager)
 
     $listComments = $commentManager->getComments($post->id());
 
-    require('/view/postView.php');
+    require('view/postView.php');
 }
 
 function addPost($postManager)
 {
-    $postManager->addPost($_POST['nbChapitre'], utf8_decode($_POST['titleEditor']), utf8_decode($_POST['contentEditorAdmin']));
+    $postManager->addPost($_POST['nbChapitre'], $_POST['titleEditor'], $_POST['contentEditorAdmin']);
 }
 
 function editPost($postManager)
@@ -66,15 +66,15 @@ function editPost($postManager)
 
     $action = "updatePost";
 
-    require('/view/editorView.php');
+    require('view/editorView.php');
 }
 
 function updatePost($postManager)
 {
     $arrayPost = array(
         'id' => $_GET['postId'],
-        'title' => utf8_decode($_POST['titleEditor']),
-        'text' => utf8_decode($_POST['contentEditorAdmin']),
+        'title' => $_POST['titleEditor'],
+        'text' => $_POST['contentEditorAdmin'],
         'tag' => $_POST['nbChapitre']);
     $post = new Post($arrayPost);
 
@@ -90,7 +90,7 @@ function getCommentsreported($commentManager)
 {
     $listComments = $commentManager->getCommentsReported();
 
-    require('/view/listCommentsView.php');
+    require('view/listCommentsView.php');
 }
 
 function reportingComment($commentManager)
@@ -100,7 +100,7 @@ function reportingComment($commentManager)
 
 function addComment($commentManager)
 {
-    $commentManager->addComment( utf8_decode($_POST['pseudo']), utf8_decode($_POST['commentUser']), $_GET['postId']);
+    $commentManager->addComment( $_POST['pseudo'], $_POST['commentUser'], $_GET['postId']);
 }
 
 function deleteComment($commentManager)

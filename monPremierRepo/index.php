@@ -3,20 +3,21 @@
 // chargement automatique de ma fonction 'loadClass' lors d'une instanciation d'un objet
 function loadClass($class)
 {
-    require '/model/' . $class . '.class.php';
+    require 'model/' . $class . '.class.php';
 }
 
 spl_autoload_register('loadClass');
 
 // instanciation d'un objet de connexion à la base de donnée
-$db = new PDO('mysql:host=localhost;dbname=blog', 'root', '');
+/*$db = new PDO('mysql:host=localhost;dbname=blog', 'root', '');*/ // $db pour localhost
+$db = new PDO('mysql:host=db5000132822.hosting-data.io;dbname=dbs127597', 'dbu272033', 'P@ss3P@rtout');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // On émet une alerte à chaque fois qu'une requête a échoué.
 
 // instanciation des managers
 $postManager = new PostManager($db);
 $commentManager = new CommentManager($db);
 
-require('/controller/controller.php');
+require('controller/controller.php');
 
 if(isset($_GET['action']))
 {
@@ -49,16 +50,16 @@ if(isset($_GET['action']))
     }
     else if($_GET['action'] == 'biographie')
     {
-        require('/view/biographieView.php');
+        require('view/biographieView.php');
     }
     else if($_GET['action'] == 'listBooks')
     {
-        require('/view/listBooksView.php');
+        require('view/listBooksView.php');
     }
     else if($_GET['action'] == 'goPostEditor')
     {
         $action = "addPost";
-        require('/view/editorView.php');
+        require('view/editorView.php');
     }
     else if($_GET['action'] == 'addPost')
     {
@@ -113,7 +114,7 @@ if(isset($_GET['action']))
     }
     else if($_GET['action'] == 'connexionAdmin')
     {
-        require('/view/adminFormView.php');
+        require('view/adminFormView.php');
     }
     else if($_GET['action'] == 'addComment')
     {
@@ -165,7 +166,7 @@ if(isset($_GET['action']))
         }
         else
         {
-            echo 'Erreur : aucun identifiant de billet envoyé';
+            getCommentsReported($commentManager);
         }
     }
     else

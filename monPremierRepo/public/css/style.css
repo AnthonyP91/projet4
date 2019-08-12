@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'nightmare';
-    src: url('/projet/public/fonts/Nightmare.ttf') format('truetype');
+    src: url('/public/fonts/Nightmare.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'pacifico';
-    src: url('/projet/public/fonts/Pacifico.ttf') format('truetype');
+    src: url('/public/fonts/Pacifico.ttf') format('truetype');
 }
 
 html
