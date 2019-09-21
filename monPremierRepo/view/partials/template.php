@@ -45,6 +45,9 @@
                     <li class="nav-item"><a href="/index.php?action=listBooks">Mes romans</a></li>
                   </ul>
                 </div>
+                <div class="navButton">
+                  <i class="fas fa-2x fa-bars"></i>
+                </div>
               </div>
             </nav>
 

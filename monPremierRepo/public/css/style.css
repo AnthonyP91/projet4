@@ -87,6 +87,14 @@ nav ul li{
     font-size: 19px;
 }
 
+.navButton{
+    display: none;
+}
+
+.navButton i{
+    color: white;
+}
+
 /* start header part */
 
 .enTete{
@@ -135,5 +143,10 @@ footer{
 {
     nav ul{
         flex-direction: column !important;
+        display: none !important;
+    }
+
+    .navButton{
+        display: block;
     }
 }
